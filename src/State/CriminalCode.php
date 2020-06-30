@@ -10,16 +10,13 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\State;
 
-class SuspectGenome
+interface CriminalCode
 {
-    public array $actions = [];
-    public int $actionWeight = 0;
+    public function isValidSentence(int $sentenceId): bool;
 
-    public function rememberAction(int $actionId, string $actionDescription)
-    {
-        // @todo: Should probably add error handling if the action doesn't actually exist.
-        $this->actions[$actionId] = $actionDescription;
-    }
+    public function getSentence($sentenceId): float;
+
+    public function getMaxSentence(): float;
 }

@@ -10,7 +10,7 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\People;
 
 class SuspectDecision
 {

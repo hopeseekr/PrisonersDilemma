@@ -12,11 +12,11 @@
 
 namespace App\Commands;
 
-use HopeSeekr\PrisonersDilemma\Adjudicator;
 use HopeSeekr\PrisonersDilemma\IncomeCalculator;
-use HopeSeekr\PrisonersDilemma\Interrogator;
-use HopeSeekr\PrisonersDilemma\PrisonSentence;
-use HopeSeekr\PrisonersDilemma\SuspectDecision;
+use HopeSeekr\PrisonersDilemma\People\SuspectDecision;
+use HopeSeekr\PrisonersDilemma\State\Adjudicator;
+use HopeSeekr\PrisonersDilemma\State\Interrogator;
+use HopeSeekr\PrisonersDilemma\State\PrisonSentence;
 use Illuminate\Console\Scheduling\Schedule;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
