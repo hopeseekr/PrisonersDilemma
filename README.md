@@ -9,11 +9,6 @@ at an optimal solution to this age old philosophical thought experiment.
 
 It uses the [**PHP Evolver genetic algorithm framework**](https://github.com/PHPExpertsInc/php-evolver).
 
-Read [**On Structuring PHP Projects**](https://blog.nikolaposa.in.rs/2017/01/16/on-structuring-php-projects/)
-for more.
-
-The configurer was inspired by https://www.binpress.com/building-project-skeletons-composer/
-
 ## Installation
 
 Via Composer
@@ -24,10 +19,10 @@ composer create-project hopeseekr/prisoners-dilemma
 
 ## Usage
 
-Install a project, then remove the directories you won't need, like `bin`.
-
-You should definitely edit the LICENSE and .travis.yml to be specific to your 
-project and update the tags at the top of the README.md.
+```bash
+# Play the classic Prisoner's Dilemma yourself against a completely irrational opponent.
+./dilemma play
+```
 
 # Use cases
 

@@ -38,10 +38,6 @@ class PlayDilemmaGameCommand extends Command
      */
     protected $description = 'Play the Prisoner\'s Dilemma thought experiment.';
 
-    const CONFESS = 0;
-    const TESTIFY = 1;
-    const SILENCE = 2;
-
     /**
      * Execute the console command.
      *
@@ -96,7 +92,8 @@ class PlayDilemmaGameCommand extends Command
         $play = function ($yourChoice, $criminalLaw) {
             $interrogator = new Interrogator();
 
-            $partnerChoice = $interrogator->interrogatePartner();
+            // @FIXME: Replace with an Irrational Genome.
+            $partnerChoice = random_int(0, count(SuspectDecision::POSSIBLE_DECISIONS) - 1);
             $partnerDecision = SuspectDecision::getThirdPartyResponse($partnerChoice);
             dump($partnerChoice);
 
@@ -106,12 +103,6 @@ class PlayDilemmaGameCommand extends Command
 
             return $judge->issueSentence($yourChoice, $partnerChoice);
         };
-
-        $sentences = [
-            'loitering' => 1,
-            'single'    => 3,
-            'team'      => 2,
-        ];
 
         $criminalLaw = new PrisonSentence();
         $convictions = $play($yourChoice, $criminalLaw);
