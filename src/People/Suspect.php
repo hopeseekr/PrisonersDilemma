@@ -10,7 +10,7 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\People;
 
 class Suspect
 {
@@ -19,16 +19,23 @@ class Suspect
     public function __construct(SuspectGenome $genome, float $mutationRate = 0.10)
     {
         $this->genome = $genome;
-
         $genome->actionWeight += (int) round(random_int(-100, 200) * $mutationRate);
     }
 
     public function takeAction(): int
     {
         // New chance to randomly learn a new action.
-        $chosenDecisionId = (int) round(
-            (random_int(0, count($this->genome->actions) * 100) + $this->genome->actionWeight) / 100
-        );
+        $actionCount = max((count($this->genome->actions) - 1) * 100, 0);
+        $chosenDecisionId = min((int) round(
+            random_int(0, max($actionCount + $this->genome->actionWeight, 0)) / 100
+        ), count(SuspectDecision::POSSIBLE_DECISIONS) - 1);
+
+        if ($chosenDecisionId >= 3) {
+            dd([
+                $actionCount,
+                $this->genome->actionWeight
+            ]);
+        }
 
         dump([
             count($this->genome->actions) * 100,

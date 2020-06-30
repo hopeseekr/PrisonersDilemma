@@ -10,13 +10,15 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\State;
+
+use HopeSeekr\PrisonersDilemma\People\SuspectDecision;
 
 class Adjudicator
 {
     protected CriminalCode $criminalCode;
 
-    public function __construct(PrisonSentence $criminalCode = null)
+    public function __construct(CriminalCode $criminalCode = null)
     {
         if (!$criminalCode) {
             $criminalCode = new PrisonSentence();

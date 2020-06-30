@@ -9,11 +9,6 @@ at an optimal solution to this age old philosophical thought experiment.
 
 It uses the [**PHP Evolver genetic algorithm framework**](https://github.com/PHPExpertsInc/php-evolver).
 
-Read [**On Structuring PHP Projects**](https://blog.nikolaposa.in.rs/2017/01/16/on-structuring-php-projects/)
-for more.
-
-The configurer was inspired by https://www.binpress.com/building-project-skeletons-composer/
-
 ## Installation
 
 Via Composer
@@ -24,19 +19,21 @@ composer create-project hopeseekr/prisoners-dilemma
 
 ## Usage
 
-Install a project, then remove the directories you won't need, like `bin`.
+```bash
+# Play the classic Prisoner's Dilemma yourself against a completely irrational opponent.
+./dilemma play
 
-You should definitely edit the LICENSE and .travis.yml to be specific to your 
-project and update the tags at the top of the README.md.
+# Run the Genetic Algorithm to see how Nature would evolve a strategy, assuming everyone is *purely* rational.
+./dilemma evolve:classic
+```
 
-# Use cases
+![image](https://user-images.githubusercontent.com/1125541/86166578-9f82ae80-bada-11ea-8ee6-ef70d5fc8f1f.png)
 
- ✔ Rapidly start up a project right.  
- ✔ Less time spent on boilerplating a git repo.  
- ✔ Conforms to the most widely-deployed PHP layout.  
- ✔ Fully compatible with the Bettergist Collective recommendation.  
+
 
 ## Testing
+
+*No tests have been created. I'm very open to contributions.*
 
 ```bash
 phpunit --testdox

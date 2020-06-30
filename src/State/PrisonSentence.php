@@ -10,7 +10,7 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\State;
 
 // @todo Evolve Prison Sentences, too
 // @todo https://github.com/hopeseekr/PrisonersDilemma/issues/2

@@ -10,7 +10,9 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\State;
+
+use HopeSeekr\PrisonersDilemma\People\Suspect;
 
 class Interrogator
 {
@@ -24,10 +26,10 @@ class Interrogator
 
     protected int $partnerChoice;
 
-    public function interrogatePartner(): int
+    public function interrogate(Suspect $suspect): int
     {
         //$this->partnerChoice = random_int(1, 2);
-        $this->partnerChoice = (new Suspect(new SuspectGenome()))->takeAction();
+        $this->partnerChoice = $suspect->takeAction();
 
         return $this->partnerChoice;
     }

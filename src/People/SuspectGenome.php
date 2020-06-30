@@ -10,12 +10,20 @@
  * This file is licensed under the MIT License.
  */
 
-namespace HopeSeekr\PrisonersDilemma;
+namespace HopeSeekr\PrisonersDilemma\People;
 
 class SuspectGenome
 {
     public array $actions = [];
     public int $actionWeight = 0;
+    public float $selfishWeight = 0;
+
+    public function __construct(array $actions = [], int $actionWeight = 0, int $selfishWeight = 0)
+    {
+        $this->actions = $actions;
+        $this->actionWeight = $actionWeight;
+        $this->selfishWeight = $selfishWeight;
+    }
 
     public function rememberAction(int $actionId, string $actionDescription)
     {
