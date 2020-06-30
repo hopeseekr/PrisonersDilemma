@@ -32,6 +32,7 @@ return PhpCsFixer\Config::create()
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
+            ->exclude('bootstrap')
             ->exclude('vendor')
             ->in(__DIR__)
     );
