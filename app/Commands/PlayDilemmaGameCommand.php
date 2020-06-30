@@ -1,4 +1,14 @@
-<?php
+<?php declare(strict_types=1);
+
+/**
+ * This file is part of The Prisoner's Dilemma Project, by Theodore R. Smith.
+ *
+ * Copyright © 2020 Theodore R. Smith <theodore@phpexperts.pro>.
+ *   GPG Fingerprint: 4BF8 2613 1C34 87AC D28F  2AD8 EB24 A91D D612 5690
+ *   https://github.com/hopeseekr/PrisonersDilemma
+ *
+ * This file is licensed under the MIT License.
+ */
 
 namespace App\Commands;
 
@@ -49,7 +59,7 @@ class PlayDilemmaGameCommand extends Command
 
         $rules = $cp->onBlack()->bold()->white();
         $this->line($rules('   If you testify against him, you will probably  '));
-        $this->line($rules("   receive a much lighter sentence.               "));
+        $this->line($rules('   receive a much lighter sentence.               '));
         $this->line($rules('                                                  '));
         $this->line($rules('   If he testifies against you, you will probably '));
         $this->line($rules('   receive a much harder sentence.                '));
@@ -163,7 +173,6 @@ class PlayDilemmaGameCommand extends Command
     /**
      * Define the command's schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     public function schedule(Schedule $schedule)
