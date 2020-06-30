@@ -36,7 +36,7 @@ class EvolveDilemmaGameCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'evolve';
+    protected $signature = 'evolve:classic';
 
     /**
      * The description of the command.

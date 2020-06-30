@@ -22,16 +22,18 @@ composer create-project hopeseekr/prisoners-dilemma
 ```bash
 # Play the classic Prisoner's Dilemma yourself against a completely irrational opponent.
 ./dilemma play
+
+# Run the Genetic Algorithm to see how Nature would evolve a strategy, assuming everyone is *purely* rational.
+./dilemma evolve:classic
 ```
 
-# Use cases
+![image](https://user-images.githubusercontent.com/1125541/86166578-9f82ae80-bada-11ea-8ee6-ef70d5fc8f1f.png)
 
- ✔ Rapidly start up a project right.  
- ✔ Less time spent on boilerplating a git repo.  
- ✔ Conforms to the most widely-deployed PHP layout.  
- ✔ Fully compatible with the Bettergist Collective recommendation.  
+
 
 ## Testing
+
+*No tests have been created. I'm very open to contributions.*
 
 ```bash
 phpunit --testdox
