@@ -12,6 +12,11 @@
 
 namespace App\Commands;
 
+use HopeSeekr\PrisonersDilemma\Adjudicator;
+use HopeSeekr\PrisonersDilemma\IncomeCalculator;
+use HopeSeekr\PrisonersDilemma\Interrogator;
+use HopeSeekr\PrisonersDilemma\PrisonSentence;
+use HopeSeekr\PrisonersDilemma\SuspectDecision;
 use Illuminate\Console\Scheduling\Schedule;
 use InvalidArgumentException;
 use LaravelZero\Framework\Commands\Command;
@@ -73,69 +78,33 @@ class PlayDilemmaGameCommand extends Command
         }
         $this->line('');
 
-        while (true) {
-            try {
-                $decision = $this->ask($cp->onBlue()->bold()->white('   What is your decision?   '));
-                if (filter_var($decision, FILTER_VALIDATE_INT) === false || ($decision < 0 || $decision > 2)) {
-                    throw new InvalidArgumentException();
+        $getPlayersChoice = function () use ($cp): int {
+            while (true) {
+                try {
+                    $decision = $this->ask($cp->onBlue()->bold()->white('   What is your decision?   '));
+                    if (filter_var($decision, FILTER_VALIDATE_INT) === false || ($decision < 0 || $decision > 2)) {
+                        throw new InvalidArgumentException();
+                    }
+
+                    return (int) $decision;
+                } catch (InvalidArgumentException $e) {
                 }
-
-                break;
-            } catch (InvalidArgumentException $e) {
             }
-        }
+        };
+        $yourChoice = $getPlayersChoice();
 
-        $play = function ($decision) use ($choices) {
-            $RANDOMNESS = 100; // 100 = 0 chance.
-            $sentences = [
-                'loitering' => 1,
-                'single'    => 3,
-                'team'      => 2,
-            ];
+        $play = function ($yourChoice, $criminalLaw) {
+            $interrogator = new Interrogator();
 
-            $partnerChoice = random_int(1, 2);
-            $partnerDecisions = [
-                self::CONFESS => 'They confessed to everything',
-                self::TESTIFY => 'They testified against you',
-                self::SILENCE => 'They said nothing',
-            ];
-            $partnerDecision = $partnerDecisions[$partnerChoice];
+            $partnerChoice = $interrogator->interrogatePartner();
+            $partnerDecision = SuspectDecision::getThirdPartyResponse($partnerChoice);
+            dump($partnerChoice);
+
             $this->line((new ConsolePainter())->onRed()->white()->bold("   Your partner's decision: $partnerDecision.   "));
-            $choices = [
-                'Confess',
-                'Testify against your partner',
-                'Say nothing',
-            ];
 
-            switch ($decision) {
-                case self::CONFESS:
-                    $convictions['you'] = $sentences['single'];
-                    $convictions['partner'] = $partnerChoice === 0 ? $sentences['single'] : 0;
-                    break;
-                case self::TESTIFY:
-                    if ($partnerChoice === self::CONFESS) {
-                        $convictions['you'] = 0;
-                        $convictions['partner'] = $sentences['single'];
-                    } elseif ($partnerChoice === self::TESTIFY) {
-                        $convictions['partner'] = $convictions['you'] = $sentences['team'];
-                    } elseif ($partnerChoice === self::SILENCE) {
-                        $convictions['you'] = 0;
-                        $convictions['partner'] = $sentences['single'];
-                    }
-                    break;
-                case self::SILENCE:
-                    if ($partnerChoice === self::CONFESS) {
-                        $convictions['you'] = 0;
-                        $convictions['partner'] = $sentences['single'];
-                    } elseif ($partnerChoice === self::TESTIFY) {
-                        $convictions['you'] = $sentences['single'];
-                        $convictions['partner'] = 0;
-                    } elseif ($partnerChoice === self::SILENCE) {
-                        $convictions['partner'] = $convictions['you'] = $sentences['loitering'];
-                    }
-            }
+            $judge = new Adjudicator($criminalLaw);
 
-            return $convictions;
+            return $judge->issueSentence($yourChoice, $partnerChoice);
         };
 
         $sentences = [
@@ -144,12 +113,10 @@ class PlayDilemmaGameCommand extends Command
             'team'      => 2,
         ];
 
-        $convictions = $play($decision);
+        $criminalLaw = new PrisonSentence();
+        $convictions = $play($yourChoice, $criminalLaw);
         dump($convictions);
 
-        $calculateIncome = function ($hourlyWage, $years): float {
-            return 2000 * $hourlyWage * $years;
-        };
         $hourlyWage = 10;
 
         $this->line($cp->onBlack()->bold()->yellow('   Minimum Wage: ')->red("\$$hourlyWage"));
@@ -159,9 +126,11 @@ class PlayDilemmaGameCommand extends Command
         $years = $convictions['partner'] === 1 ? 'year' : 'years';
         $partnerConviction = $convictions['partner'] === 0 ? 'acquitted and is now free!' : "convicted for $convictions[partner] $years.";
 
-        $yourIncome = '$' . number_format($calculateIncome($hourlyWage, max($sentences) - $convictions['you']));
-        $partnerIncome = '$' . number_format($calculateIncome($hourlyWage, max($sentences) - $convictions['partner']));
-        $totalIncome = '$' . number_format($calculateIncome($hourlyWage, (max($sentences) * 2) - $convictions['you'] - $convictions['partner']));
+        $maxPossibleSentence = $criminalLaw->getMaxSentence();
+
+        $yourIncome = '$' . number_format(IncomeCalculator::calculate($hourlyWage, $maxPossibleSentence - $convictions['you']));
+        $partnerIncome = '$' . number_format(IncomeCalculator::calculate($hourlyWage, $maxPossibleSentence - $convictions['partner']));
+        $totalIncome = '$' . number_format(IncomeCalculator::calculate($hourlyWage, ($maxPossibleSentence * 2) - $convictions['you'] - $convictions['partner']));
 
         $outcome = $cp->onBlue()->bold();
         $this->line($outcome(str_pad('   Outcomes:', 72)));

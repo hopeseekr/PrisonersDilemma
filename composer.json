@@ -23,7 +23,8 @@
         "php": "^7.4",
         "ext-json": "*",
         "laravel-zero/framework": "^7.0",
-        "phpexperts/console-painter": "^1.0"
+        "phpexperts/console-painter": "^1.0",
+        "phpexperts/php-evolver": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "8.*|9.*",
