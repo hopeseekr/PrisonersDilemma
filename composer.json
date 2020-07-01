@@ -32,7 +32,8 @@
         "phpstan/phpstan": "*",
         "friendsofphp/php-cs-fixer": "*",
         "symfony/var-dumper": "*",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "phpexperts/docker-phan": "^1.0"
     },
     "autoload": {
         "psr-4": {
