@@ -141,11 +141,10 @@ class EvolveDilemmaGameCommand extends Command
         $partnerIncome = '$' . number_format($antagonistFitnessDTO->individualWages);
         $totalIncome = '$' . number_format($antagonistFitnessDTO->communityWages);
 
-        $outcome = $cp->onBlue()->bold();
-        $this->line($outcome(str_pad('   Outcomes:', 72)));
-        $this->line($outcome(str_pad("      - You were $yourConviction", 55) . str_pad("Income: $yourIncome", 17)));
-        $this->line($outcome(str_pad("      - Your partner was $partnerConviction", 55) . str_pad("Income: $partnerIncome", 17)));
-        $this->line($outcome(str_pad('', 49) . str_pad("Total Income: $totalIncome", 23)));
+        $this->line($cp->onBlue()->bold((str_pad('   Outcomes:', 72))));
+        $this->line($cp->onBlue()->bold((str_pad("      - You were $yourConviction", 55) . str_pad("Income: $yourIncome", 17))));
+        $this->line($cp->onBlue()->bold((str_pad("      - Your partner was $partnerConviction", 55) . str_pad("Income: $partnerIncome", 17))));
+        $this->line($cp->onBlue()->bold((str_pad('', 49) . str_pad("Total Income: $totalIncome", 23))));
 
         return $roundData;
     }
