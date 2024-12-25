@@ -20,11 +20,11 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^8.2",
         "ext-json": "*",
-        "laravel-zero/framework": "^7.0",
+        "laravel-zero/framework": "^10.0",
         "phpexperts/console-painter": "^1.0",
-        "phpexperts/php-evolver": "^1.0",
+        "phpexperts/php-evolver": "^2.0",
         "phpexperts/simple-dto": "^2.4"
     },
     "require-dev": {
@@ -33,7 +33,8 @@
         "friendsofphp/php-cs-fixer": "*",
         "symfony/var-dumper": "*",
         "squizlabs/php_codesniffer": "*",
-        "phpexperts/docker-phan": "^1.0"
+        "phpexperts/docker-phan": "^1.0",
+        "phpexperts/dockerize": "^12.0"
     },
     "autoload": {
         "psr-4": {
