@@ -1,7 +1,7 @@
 # Prisoner's Dilemma Project
 
 [![TravisCI](https://travis-ci.org/phpexpertsinc/skeleton.svg?branch=master)](https://travis-ci.org/phpexpertsinc/skeleton)
-[![Maintainability](https://api.codeclimate.com/v1/badges/503cba0c53eb262c947a/maintainability)](https://codeclimate.com/github/phpexpertsinc/SimpleDTO/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/322a4c382e5ebf1a5d06/maintainability)](https://codeclimate.com/github/hopeseekr/PrisonersDilemma/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/503cba0c53eb262c947a/test_coverage)](https://codeclimate.com/github/phpexpertsinc/SimpleDTO/test_coverage)
 
 The Prisoner's Dilemma Project is meant to see if evolutionary pressures alone are enough to arrive 
